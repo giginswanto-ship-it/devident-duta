@@ -31,13 +31,13 @@
         <div>
           <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-semibold mb-2 border border-emerald-500/20">
             <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-            100% Real-Time & Dinamis
+            100% Real-Time & Dinamis (20% Mesin + 80% Deviden)
           </div>
           <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
-            Kalkulator Deviden Terintegrasi
+            Kalkulator Deviden & Bagi Hasil Usaha
           </h1>
           <p class="text-sm text-slate-400 mt-1">
-            Ubah nilai laba bersih atau persentase di bawah — seluruh komponen dan rincian anggota akan terhitung otomatis seketika.
+            Sistem alokasi laba bersih: Disisihkan 20% untuk Pemeliharaan Mesin, sisa 80% dibagi ke Pendiri (51%) dan Tim/Anak-Anak (49%).
           </p>
         </div>
         <div class="flex items-center gap-2 flex-wrap">
@@ -53,106 +53,138 @@
       </div>
     </header>
 
-    <!-- Top Master Control: Input Laba & Distribusi Induk -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+    <!-- Top Master Control: Input Laba & 3 Kantong Distribusi -->
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
       
       <!-- Input Laba Bersih Utama -->
-      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg flex flex-col justify-between relative overflow-hidden">
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg flex flex-col justify-between relative overflow-hidden lg:col-span-1">
         <div class="absolute top-0 right-0 w-24 h-24 bg-amber-500/10 rounded-bl-full pointer-events-none"></div>
         <div>
           <div class="flex items-center justify-between mb-2">
             <label class="block text-xs font-bold uppercase tracking-wider text-amber-400">
               Total Laba Bersih Usaha
             </label>
-            <span class="text-[11px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-semibold border border-amber-500/30">Master Input</span>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-semibold border border-amber-500/30">Master</span>
           </div>
           
           <div class="relative mt-2">
-            <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-amber-400 font-bold text-lg">Rp</span>
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-400 font-bold text-base">Rp</span>
             <input type="text" id="inputLaba" value="70.000.000" oninput="handleLabaInput(this)" 
-              class="w-full pl-12 pr-4 py-3 bg-slate-950 border-2 border-amber-500/50 focus:border-amber-400 rounded-xl text-xl sm:text-2xl font-black text-amber-300 focus:outline-none focus:ring-4 focus:ring-amber-500/20 transition-all font-mono shadow-inner">
+              class="w-full pl-10 pr-3 py-2.5 bg-slate-950 border-2 border-amber-500/50 focus:border-amber-400 rounded-xl text-lg font-black text-amber-300 focus:outline-none focus:ring-4 focus:ring-amber-500/20 transition-all font-mono shadow-inner">
           </div>
 
           <!-- Quick Laba Buttons -->
-          <div class="mt-3 flex items-center gap-1.5 flex-wrap">
-            <span class="text-[11px] text-slate-400 mr-1">Cepat:</span>
-            <button onclick="setLaba(30000000)" class="px-2 py-1 text-[11px] font-mono bg-slate-800 hover:bg-slate-700 text-slate-300 rounded border border-slate-700">30 Jt</button>
-            <button onclick="setLaba(50000000)" class="px-2 py-1 text-[11px] font-mono bg-slate-800 hover:bg-slate-700 text-slate-300 rounded border border-slate-700">50 Jt</button>
-            <button onclick="setLaba(70000000)" class="px-2 py-1 text-[11px] font-mono bg-amber-900/60 hover:bg-amber-800 text-amber-200 rounded border border-amber-600/50 font-bold">70 Jt</button>
-            <button onclick="setLaba(100000000)" class="px-2 py-1 text-[11px] font-mono bg-slate-800 hover:bg-slate-700 text-slate-300 rounded border border-slate-700">100 Jt</button>
-            <button onclick="setLaba(150000000)" class="px-2 py-1 text-[11px] font-mono bg-slate-800 hover:bg-slate-700 text-slate-300 rounded border border-slate-700">150 Jt</button>
+          <div class="mt-3 flex items-center gap-1 flex-wrap">
+            <span class="text-[10px] text-slate-400 mr-0.5">Cepat:</span>
+            <button onclick="setLaba(30000000)" class="px-1.5 py-0.5 text-[10px] font-mono bg-slate-800 hover:bg-slate-700 text-slate-300 rounded border border-slate-700">30Jt</button>
+            <button onclick="setLaba(50000000)" class="px-1.5 py-0.5 text-[10px] font-mono bg-slate-800 hover:bg-slate-700 text-slate-300 rounded border border-slate-700">50Jt</button>
+            <button onclick="setLaba(70000000)" class="px-1.5 py-0.5 text-[10px] font-mono bg-amber-900/60 hover:bg-amber-800 text-amber-200 rounded border border-amber-600/50 font-bold">70Jt</button>
+            <button onclick="setLaba(100000000)" class="px-1.5 py-0.5 text-[10px] font-mono bg-slate-800 hover:bg-slate-700 text-slate-300 rounded border border-slate-700">100Jt</button>
+            <button onclick="setLaba(150000000)" class="px-1.5 py-0.5 text-[10px] font-mono bg-slate-800 hover:bg-slate-700 text-slate-300 rounded border border-slate-700">150Jt</button>
           </div>
         </div>
 
-        <div class="mt-5 pt-4 border-t border-slate-800 flex justify-between items-center text-xs">
-          <span class="text-slate-400">Total Proyeksi 1 Tahun (x12):</span>
-          <span id="labaTahunanDisplay" class="font-bold text-slate-100 font-mono text-sm">Rp 840.000.000</span>
+        <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center text-xs">
+          <span class="text-slate-400">Total Proyeksi 1 Thn:</span>
+          <span id="labaTahunanDisplay" class="font-bold text-slate-100 font-mono text-xs sm:text-sm">Rp 840.000.000</span>
         </div>
       </div>
 
-      <!-- Dua Kantong Dana: Bagian Pendiri & Bagian Anak-Anak -->
-      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <!-- Tiga Kantong Distribusi: Mesin (20%), Pendiri (51% dr sisa), Tim (49% dr sisa) -->
+      <div class="lg:col-span-3 grid grid-cols-1 sm:grid-cols-3 gap-4">
         
-        <!-- Kantong Pendiri (51%) -->
-        <div class="bg-slate-950 border border-sky-500/40 rounded-xl p-4 flex flex-col justify-between shadow-sm">
+        <!-- 1. Kantong Simpanan Pemeliharaan Mesin (20%) -->
+        <div class="bg-slate-900 border-2 border-amber-500/50 rounded-2xl p-4 flex flex-col justify-between shadow-md relative overflow-hidden">
+          <div class="absolute -top-1 right-2 px-2 py-0.5 bg-amber-600 text-white text-[9px] font-extrabold uppercase rounded shadow">
+            Disimpan Terlebih Dahulu
+          </div>
           <div>
-            <div class="flex items-center justify-between">
-              <span class="text-xs font-bold text-sky-400 uppercase tracking-wider">1. Bagian Pendiri</span>
+            <div class="flex items-center justify-between mt-1">
+              <span class="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1">
+                ⚙️ 1. Simpanan Mesin
+              </span>
               <div class="flex items-center gap-1">
-                <input type="number" id="persenPendiri" value="51" step="0.5" min="0" max="100" oninput="handlePersenPendiriChange(this.value)"
-                  class="w-14 px-2 py-0.5 text-right bg-slate-900 border border-sky-500/50 rounded text-xs font-bold text-sky-300 focus:outline-none font-mono">
-                <span class="text-xs font-bold text-sky-400">%</span>
+                <input type="number" id="persenMesin" value="20" step="1" min="0" max="100" oninput="handlePersenMesinChange(this.value)"
+                  class="w-12 px-1.5 py-0.5 text-right bg-slate-950 border border-amber-500/50 rounded text-xs font-bold text-amber-300 focus:outline-none font-mono">
+                <span class="text-xs font-bold text-amber-400">%</span>
               </div>
             </div>
-            <div id="nominalPendiriBulan" class="text-xl sm:text-2xl font-black text-sky-300 mt-2 font-mono">Rp 35.700.000</div>
-            <div class="text-xs text-slate-400 mt-0.5">alokasi per bulan untuk owner</div>
+            <div id="nominalMesinBulan" class="text-lg sm:text-xl font-black text-amber-300 mt-2 font-mono">Rp 14.000.000</div>
+            <div class="text-[11px] text-amber-400/80 mt-0.5">Dana pemeliharaan mesin/bln</div>
           </div>
-          <div class="mt-4 pt-3 border-t border-slate-800 text-xs text-slate-400 flex justify-between items-center font-mono">
+          <div class="mt-3 pt-2.5 border-t border-slate-800 text-[11px] text-slate-400 flex justify-between items-center font-mono">
             <span>Setahun:</span>
-            <span id="nominalPendiriTahun" class="font-bold text-sky-200 text-sm">Rp 428.400.000</span>
+            <span id="nominalMesinTahun" class="font-bold text-amber-200 text-xs">Rp 168.000.000</span>
           </div>
         </div>
 
-        <!-- Kantong Tim/Anak-Anak (49%) -->
-        <div class="bg-slate-950 border-2 border-emerald-500/60 rounded-xl p-4 flex flex-col justify-between shadow-md relative overflow-hidden">
-          <div class="absolute -top-1 right-2 px-2 py-0.5 bg-emerald-600 text-white text-[10px] font-extrabold uppercase rounded shadow">
+        <!-- 2. Kantong Pendiri (51% dari sisa 80%) -->
+        <div class="bg-slate-900 border border-sky-500/40 rounded-2xl p-4 flex flex-col justify-between shadow-sm">
+          <div>
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-sky-400 uppercase tracking-wider flex items-center gap-1">
+                👑 2. Bagian Pendiri
+              </span>
+              <div class="flex items-center gap-1">
+                <input type="number" id="persenPendiri" value="51" step="0.5" min="0" max="100" oninput="handlePersenPendiriChange(this.value)"
+                  class="w-12 px-1.5 py-0.5 text-right bg-slate-950 border border-sky-500/50 rounded text-xs font-bold text-sky-300 focus:outline-none font-mono">
+                <span class="text-xs font-bold text-sky-400">%</span>
+              </div>
+            </div>
+            <div id="nominalPendiriBulan" class="text-lg sm:text-xl font-black text-sky-300 mt-2 font-mono">Rp 28.560.000</div>
+            <div id="subtextPendiri" class="text-[11px] text-slate-400 mt-0.5">51% dari sisa laba (40,8% total)</div>
+          </div>
+          <div class="mt-3 pt-2.5 border-t border-slate-800 text-[11px] text-slate-400 flex justify-between items-center font-mono">
+            <span>Setahun:</span>
+            <span id="nominalPendiriTahun" class="font-bold text-sky-200 text-xs">Rp 342.720.000</span>
+          </div>
+        </div>
+
+        <!-- 3. Kantong Tim / Anak-Anak (49% dari sisa 80%) -->
+        <div class="bg-slate-900 border-2 border-emerald-500/60 rounded-2xl p-4 flex flex-col justify-between shadow-md relative overflow-hidden">
+          <div class="absolute -top-1 right-2 px-2 py-0.5 bg-emerald-600 text-white text-[9px] font-extrabold uppercase rounded shadow">
             Pool Dibagikan ke Tim
           </div>
           <div>
             <div class="flex items-center justify-between mt-1">
-              <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">2. Bagian Anak-Anak</span>
+              <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1">
+                👥 3. Bagian Anak-Anak
+              </span>
               <div class="flex items-center gap-1">
                 <input type="number" id="persenAnak" value="49" step="0.5" min="0" max="100" oninput="handlePersenAnakChange(this.value)"
-                  class="w-14 px-2 py-0.5 text-right bg-slate-900 border border-emerald-500/50 rounded text-xs font-bold text-emerald-300 focus:outline-none font-mono">
+                  class="w-12 px-1.5 py-0.5 text-right bg-slate-950 border border-emerald-500/50 rounded text-xs font-bold text-emerald-300 focus:outline-none font-mono">
                 <span class="text-xs font-bold text-emerald-400">%</span>
               </div>
             </div>
-            <div id="nominalAnakBulan" class="text-xl sm:text-2xl font-black text-emerald-300 mt-2 font-mono">Rp 34.300.000</div>
-            <div class="text-xs text-emerald-400/80 font-semibold mt-0.5">100% dana pool ini dibagi ke tim</div>
+            <div id="nominalAnakBulan" class="text-lg sm:text-xl font-black text-emerald-300 mt-2 font-mono">Rp 27.440.000</div>
+            <div id="subtextAnak" class="text-[11px] text-emerald-400/80 font-semibold mt-0.5">49% dari sisa laba (39,2% total)</div>
           </div>
-          <div class="mt-4 pt-3 border-t border-slate-800 text-xs text-slate-400 flex justify-between items-center font-mono">
+          <div class="mt-3 pt-2.5 border-t border-slate-800 text-[11px] text-slate-400 flex justify-between items-center font-mono">
             <span>Setahun:</span>
-            <span id="nominalAnakTahun" class="font-bold text-emerald-200 text-sm">Rp 411.600.000</span>
+            <span id="nominalAnakTahun" class="font-bold text-emerald-200 text-xs">Rp 329.280.000</span>
           </div>
         </div>
 
       </div>
     </div>
 
-    <!-- Visual Dynamic Progress Bar Pool Allocation -->
+    <!-- Visual Dynamic Progress Bar 3-Alokasi -->
     <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow-sm space-y-2">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between text-xs gap-1">
-        <div class="font-semibold text-slate-300 flex items-center gap-2">
-          <span>Distribusi Dana Laba Keseluruhan:</span>
-          <span class="font-mono text-sky-400 font-bold" id="barTextPendiri">Pendiri 51% (Rp 35.700.000)</span>
+        <div class="font-semibold text-slate-300 flex items-center gap-2 flex-wrap">
+          <span>Struktur Alokasi Total Laba:</span>
+          <span class="font-mono text-amber-400 font-bold" id="barTextMesin">Mesin 20,0% (Rp 14.000.000)</span>
           <span class="text-slate-600">|</span>
-          <span class="font-mono text-emerald-400 font-bold" id="barTextAnak">Tim 49% (Rp 34.300.000)</span>
+          <span class="font-mono text-sky-400 font-bold" id="barTextPendiri">Pendiri 40,8% (Rp 28.560.000)</span>
+          <span class="text-slate-600">|</span>
+          <span class="font-mono text-emerald-400 font-bold" id="barTextAnak">Tim 39,2% (Rp 27.440.000)</span>
         </div>
-        <div class="font-mono text-slate-400">Total: 100% Lunas</div>
+        <div class="font-mono text-emerald-400 font-semibold">Total: 100% Lunas</div>
       </div>
       <div class="w-full h-3 bg-slate-950 rounded-full overflow-hidden flex border border-slate-800">
-        <div id="progressBarPendiri" class="h-full bg-sky-500 transition-all duration-300" style="width: 51%"></div>
-        <div id="progressBarAnak" class="h-full bg-emerald-500 transition-all duration-300" style="width: 49%"></div>
+        <div id="progressBarMesin" class="h-full bg-amber-500 transition-all duration-300" style="width: 20%"></div>
+        <div id="progressBarPendiri" class="h-full bg-sky-500 transition-all duration-300" style="width: 40.8%"></div>
+        <div id="progressBarAnak" class="h-full bg-emerald-500 transition-all duration-300" style="width: 39.2%"></div>
       </div>
     </div>
 
@@ -165,7 +197,7 @@
             <span id="countAnggota" class="px-2.5 py-0.5 text-xs bg-slate-800 text-slate-300 rounded-full border border-slate-700 font-mono">7 Penerima</span>
           </h2>
           <p class="text-xs text-slate-400 mt-0.5">
-            Semua nominal deviden bulanan & tahunan di bawah otomatis terintegrasi dengan total laba bersih.
+            Membagikan dana pool anak-anak (<span id="tablePoolSubtext" class="text-emerald-400 font-bold">Rp 27.440.000 / bulan</span>) secara proporsional sesuai saham & sweat equity.
           </p>
         </div>
         <button onclick="tambahBaris()" class="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold rounded-lg transition-all shadow-md flex items-center gap-1.5 self-start sm:self-auto">
@@ -194,19 +226,39 @@
             <!-- Rendered by JavaScript dynamically -->
           </tbody>
           <tfoot class="bg-slate-950 font-semibold text-xs border-t-2 border-slate-800">
-            <tr>
-              <td colspan="2" class="py-3.5 px-4 text-slate-300 font-bold">TOTAL DIBAGIKAN KE ANAK-ANAK</td>
+            <!-- Subtotal Bagian Anak-Anak -->
+            <tr class="text-emerald-300">
+              <td colspan="2" class="py-3.5 px-4 font-bold text-slate-300">TOTAL DIBAGIKAN KE ANAK-ANAK (49% DARI SISA)</td>
               <td id="footTotalSaham" class="py-3.5 px-3 text-right font-mono text-slate-200">42,0%</td>
               <td id="footTotalSweat" class="py-3.5 px-3 text-right font-mono text-purple-300">7,0%</td>
               <td id="footTotalPersen" class="py-3.5 px-3 text-right font-mono text-slate-200 font-bold">49,0%</td>
               <td id="footPoolPercent" class="py-3.5 px-3 text-right font-mono text-purple-300 font-bold">100,0%</td>
-              <td id="footTotalNominalBulan" class="py-3.5 px-4 text-right font-mono text-emerald-300 font-bold text-sm">Rp 34.300.000</td>
-              <td id="footTotalNominalTahun" class="py-3.5 px-4 text-right font-mono text-sky-300 font-bold text-sm">Rp 411.600.000</td>
+              <td id="footTotalNominalBulan" class="py-3.5 px-4 text-right font-mono text-emerald-300 font-bold text-sm">Rp 27.440.000</td>
+              <td id="footTotalNominalTahun" class="py-3.5 px-4 text-right font-mono text-sky-300 font-bold text-sm">Rp 329.280.000</td>
               <td></td>
             </tr>
-            <tr class="bg-black font-bold text-xs text-amber-300 border-t border-slate-800">
-              <td colspan="4" class="py-3.5 px-4 text-amber-400">TOTAL DISTRIBUSI KESELURUHAN (PENDIRI + TIM)</td>
-              <td id="footGrandTotalPersen" class="py-3.5 px-3 text-right font-mono">100,0%</td>
+            <!-- Baris Bagian Pendiri -->
+            <tr class="text-sky-300 border-t border-slate-800/60">
+              <td colspan="4" class="py-3 px-4 text-sky-400 font-bold">BAGIAN PENDIRI / OWNER (51% DARI SISA)</td>
+              <td id="footPersenPendiriEfektif" class="py-3 px-3 text-right font-mono">40,8%</td>
+              <td class="text-right text-slate-500 font-mono">-</td>
+              <td id="footNominalPendiriBulan" class="py-3 px-4 text-right font-mono font-bold text-sky-300">Rp 28.560.000</td>
+              <td id="footNominalPendiriTahun" class="py-3 px-4 text-right font-mono font-bold text-sky-300">Rp 342.720.000</td>
+              <td></td>
+            </tr>
+            <!-- Baris Simpanan Mesin -->
+            <tr class="text-amber-300 border-t border-slate-800/60">
+              <td colspan="4" class="py-3 px-4 text-amber-400 font-bold">SIMPANAN PEMELIHARAAN MESIN-MESIN (20% DARI LABA)</td>
+              <td id="footPersenMesin" class="py-3 px-3 text-right font-mono">20,0%</td>
+              <td class="text-right text-slate-500 font-mono">-</td>
+              <td id="footNominalMesinBulan" class="py-3 px-4 text-right font-mono font-bold text-amber-300">Rp 14.000.000</td>
+              <td id="footNominalMesinTahun" class="py-3 px-4 text-right font-mono font-bold text-amber-300">Rp 168.000.000</td>
+              <td></td>
+            </tr>
+            <!-- Grand Total 100% -->
+            <tr class="bg-black font-bold text-xs text-amber-300 border-t-2 border-slate-700">
+              <td colspan="4" class="py-3.5 px-4 text-white text-sm">TOTAL LABA BERSIH USAHA KESELURUHAN (100%)</td>
+              <td class="py-3.5 px-3 text-right font-mono text-sm text-white">100,0%</td>
               <td class="text-right text-slate-400 font-mono">100,0%</td>
               <td id="footGrandTotalBulan" class="py-3.5 px-4 text-right font-mono text-sm font-extrabold text-emerald-400">Rp 70.000.000</td>
               <td id="footGrandTotalTahun" class="py-3.5 px-4 text-right font-mono text-sm font-extrabold text-sky-400">Rp 840.000.000</td>
@@ -221,20 +273,20 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-slate-400">
       <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 flex flex-col justify-between">
         <div>
-          <span class="font-bold text-slate-200 block mb-1">🔗 Integrasi Total Laba Usaha</span>
-          Setiap angka laba baru yang diketikkan akan otomatis mengalikan porsi Pendiri (51%) dan seluruh Anggota Tim (49%).
+          <span class="font-bold text-amber-300 block mb-1">⚙️ Simpanan Pemeliharaan Mesin 20%</span>
+          Disimpan pertama kali dari total laba bersih usaha sebagai dana cadangan operasional & perawatan mesin.
         </div>
       </div>
       <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 flex flex-col justify-between">
         <div>
-          <span class="font-bold text-slate-200 block mb-1">⚡ Sweat Equity Terpisah</span>
-          Sweat equity dihitung sebagai porsi tambahan di atas saham modal dasar dan terakumulasi secara otomatis.
+          <span class="font-bold text-sky-300 block mb-1">👑 Deviden Sisa Laba (80%)</span>
+          Sisa 80% laba dibagikan dengan proporsi 51% untuk Owner/Pendiri dan 49% untuk pool Anggota Tim.
         </div>
       </div>
       <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 flex flex-col justify-between">
         <div>
-          <span class="font-bold text-slate-200 block mb-1">🛡️ Konsistensi 100%</span>
-          <span id="infoDanaCheck">Dana Rp 34.300.000 terbagi habis secara proporsional.</span>
+          <span class="font-bold text-emerald-300 block mb-1">🛡️ Konsistensi & Akurasi 100%</span>
+          <span id="infoDanaCheck">Dana terbagi habis secara proporsional tanpa selisih pembulatan.</span>
         </div>
       </div>
     </div>
@@ -255,8 +307,9 @@
 
     let items = JSON.parse(JSON.stringify(defaultData));
     let labaBersih = 70000000;
-    let persenPendiri = 51.0;
-    let persenAnak = 49.0;
+    let persenMesin = 20.0;     // 20% dari total laba bersih
+    let persenPendiri = 51.0;   // 51% dari sisa 80% laba
+    let persenAnak = 49.0;      // 49% dari sisa 80% laba
 
     function formatRupiah(number) {
       return new Intl.NumberFormat('id-ID', {
@@ -288,6 +341,11 @@
       render();
     }
 
+    function handlePersenMesinChange(val) {
+      persenMesin = parseFloat(val) || 0;
+      render();
+    }
+
     function handlePersenPendiriChange(val) {
       persenPendiri = parseFloat(val) || 0;
       persenAnak = +(100 - persenPendiri).toFixed(2);
@@ -314,7 +372,7 @@
     function tambahBaris() {
       items.push({
         nama: `Anggota ${items.length + 1}`,
-        saham: 5.6,
+        saham: 6.0,
         sweat: 0.0
       });
       render();
@@ -332,35 +390,63 @@
     function resetToDefaults() {
       items = JSON.parse(JSON.stringify(defaultData));
       labaBersih = 70000000;
+      persenMesin = 20.0;
       persenPendiri = 51.0;
       persenAnak = 49.0;
       document.getElementById('inputLaba').value = formatNumberString(labaBersih);
+      document.getElementById('persenMesin').value = persenMesin;
       document.getElementById('persenPendiri').value = persenPendiri;
       document.getElementById('persenAnak').value = persenAnak;
       render();
     }
 
     function render() {
-      // 1. Kalkulasi Utama Terintegrasi dari Laba Bersih
+      // 1. Kalkulasi Simpanan Mesin (20%) & Sisa Deviden (80%)
       const labaTahunan = labaBersih * 12;
-      const nominalPendiriBulan = (persenPendiri / 100) * labaBersih;
+      const nominalMesinBulan = (persenMesin / 100) * labaBersih;
+      const nominalMesinTahun = nominalMesinBulan * 12;
+
+      // Sisa laba yang siap dibagikan untuk deviden
+      const sisaLabaPersen = Math.max(0, 100 - persenMesin);
+      const sisaLabaBulan = (sisaLabaPersen / 100) * labaBersih;
+
+      // Pembagian sisa laba ke Pendiri (51%) & Tim/Anak-Anak (49%)
+      const nominalPendiriBulan = (persenPendiri / 100) * sisaLabaBulan;
       const nominalPendiriTahun = nominalPendiriBulan * 12;
 
-      const poolAnakBulan = (persenAnak / 100) * labaBersih;
+      const poolAnakBulan = (persenAnak / 100) * sisaLabaBulan;
       const poolAnakTahun = poolAnakBulan * 12;
 
-      // Update Card Atas
+      // Persentase efektif dari total laba bersih (100%)
+      const persenEfektifPendiri = (persenPendiri / 100) * sisaLabaPersen;
+      const persenEfektifAnak = (persenAnak / 100) * sisaLabaPersen;
+
+      // Update Card Header & Master Control
       document.getElementById('labaTahunanDisplay').textContent = formatRupiah(labaTahunan);
+      
+      // Update Card Mesin
+      document.getElementById('nominalMesinBulan').textContent = formatRupiah(nominalMesinBulan);
+      document.getElementById('nominalMesinTahun').textContent = formatRupiah(nominalMesinTahun);
+
+      // Update Card Pendiri
       document.getElementById('nominalPendiriBulan').textContent = formatRupiah(nominalPendiriBulan);
       document.getElementById('nominalPendiriTahun').textContent = formatRupiah(nominalPendiriTahun);
+      document.getElementById('subtextPendiri').textContent = `${persenPendiri.toFixed(1)}% dari sisa laba (${persenEfektifPendiri.toFixed(1)}% total)`;
+
+      // Update Card Anak
       document.getElementById('nominalAnakBulan').textContent = formatRupiah(poolAnakBulan);
       document.getElementById('nominalAnakTahun').textContent = formatRupiah(poolAnakTahun);
+      document.getElementById('subtextAnak').textContent = `${persenAnak.toFixed(1)}% dari sisa laba (${persenEfektifAnak.toFixed(1)}% total)`;
+      document.getElementById('tablePoolSubtext').textContent = `${formatRupiah(poolAnakBulan)} / bulan`;
 
       // Update Progress Bar
-      document.getElementById('barTextPendiri').textContent = `Pendiri ${persenPendiri.toFixed(1)}% (${formatRupiah(nominalPendiriBulan)})`;
-      document.getElementById('barTextAnak').textContent = `Tim ${persenAnak.toFixed(1)}% (${formatRupiah(poolAnakBulan)})`;
-      document.getElementById('progressBarPendiri').style.width = `${Math.min(100, Math.max(0, persenPendiri))}%`;
-      document.getElementById('progressBarAnak').style.width = `${Math.min(100, Math.max(0, persenAnak))}%`;
+      document.getElementById('barTextMesin').textContent = `Mesin ${persenMesin.toFixed(1)}% (${formatRupiah(nominalMesinBulan)})`;
+      document.getElementById('barTextPendiri').textContent = `Pendiri ${persenEfektifPendiri.toFixed(1)}% (${formatRupiah(nominalPendiriBulan)})`;
+      document.getElementById('barTextAnak').textContent = `Tim ${persenEfektifAnak.toFixed(1)}% (${formatRupiah(poolAnakBulan)})`;
+      
+      document.getElementById('progressBarMesin').style.width = `${Math.min(100, Math.max(0, persenMesin))}%`;
+      document.getElementById('progressBarPendiri').style.width = `${Math.min(100, Math.max(0, persenEfektifPendiri))}%`;
+      document.getElementById('progressBarAnak').style.width = `${Math.min(100, Math.max(0, persenEfektifAnak))}%`;
 
       // 2. Kalkulasi Detail Anggota Tim
       let sumSaham = 0;
@@ -385,7 +471,7 @@
         // Porsi persentase terhadap pool anak
         const sharePoolPercent = sumTotalPersen > 0 ? (totalPorsiItem / sumTotalPersen) * 100 : 0;
         
-        // Nominal uang yang didapat (selalu tersinkronisasi realtime dengan poolAnakBulan)
+        // Nominal uang yang didapat (tersinkronisasi realtime dengan poolAnakBulan)
         const nominalBulan = sumTotalPersen > 0 ? (totalPorsiItem / sumTotalPersen) * poolAnakBulan : 0;
         const nominalTahun = nominalBulan * 12;
 
@@ -438,25 +524,43 @@
       document.getElementById('footTotalNominalBulan').textContent = formatRupiah(sumNominalBulan);
       document.getElementById('footTotalNominalTahun').textContent = formatRupiah(sumNominalBulan * 12);
 
-      const grandTotalBulan = nominalPendiriBulan + sumNominalBulan;
+      // Footer Baris Pendiri & Mesin
+      document.getElementById('footPersenPendiriEfektif').textContent = persenEfektifPendiri.toFixed(1) + '%';
+      document.getElementById('footNominalPendiriBulan').textContent = formatRupiah(nominalPendiriBulan);
+      document.getElementById('footNominalPendiriTahun').textContent = formatRupiah(nominalPendiriTahun);
+
+      document.getElementById('footPersenMesin').textContent = persenMesin.toFixed(1) + '%';
+      document.getElementById('footNominalMesinBulan').textContent = formatRupiah(nominalMesinBulan);
+      document.getElementById('footNominalMesinTahun').textContent = formatRupiah(nominalMesinTahun);
+
+      // Grand Total Keseluruhan (Mesin + Pendiri + Tim)
+      const grandTotalBulan = nominalMesinBulan + nominalPendiriBulan + sumNominalBulan;
       const grandTotalTahun = grandTotalBulan * 12;
-      document.getElementById('footGrandTotalPersen').textContent = (persenPendiri + (sumTotalPersen > 0 ? persenAnak : 0)).toFixed(1) + '%';
       document.getElementById('footGrandTotalBulan').textContent = formatRupiah(grandTotalBulan);
       document.getElementById('footGrandTotalTahun').textContent = formatRupiah(grandTotalTahun);
 
-      document.getElementById('infoDanaCheck').textContent = `Total dana ${formatRupiah(poolAnakBulan)} terbagi habis 100% tanpa selisih.`;
+      document.getElementById('infoDanaCheck').textContent = `Total alokasi (Mesin ${formatRupiah(nominalMesinBulan)} + Pendiri ${formatRupiah(nominalPendiriBulan)} + Tim ${formatRupiah(sumNominalBulan)}) = ${formatRupiah(grandTotalBulan)} terbagi habis 100%.`;
     }
 
     function exportToCSV() {
       let csvContent = "data:text/csv;charset=utf-8,";
-      csvContent += "Nama / Posisi,Saham (%),Sweat Equity (%),Total Porsi (%),Porsi dari Pool Tim (%),Deviden Bulanan (IDR),Deviden Tahunan (IDR)\n";
+      csvContent += "Kategori / Penerima,Saham (%),Sweat Equity (%),Total Porsi (%),Porsi dari Pool (%),Alokasi Bulanan (IDR),Alokasi Tahunan (IDR)\n";
       
-      const poolAnakBulan = (persenAnak / 100) * labaBersih;
+      const sisaLabaPersen = Math.max(0, 100 - persenMesin);
+      const sisaLabaBulan = (sisaLabaPersen / 100) * labaBersih;
+      const nominalMesinBulan = (persenMesin / 100) * labaBersih;
+      const pendiriBulan = (persenPendiri / 100) * sisaLabaBulan;
+      const poolAnakBulan = (persenAnak / 100) * sisaLabaBulan;
       const sumTotalPersen = items.reduce((acc, c) => acc + (c.saham || 0) + (c.sweat || 0), 0);
 
-      const pendiriBulan = (persenPendiri / 100) * labaBersih;
-      csvContent += `"Pendiri (Owner)",${persenPendiri.toFixed(1)}%,0.0%,${persenPendiri.toFixed(1)}%,-,${pendiriBulan},${pendiriBulan * 12}\n`;
+      // 1. Baris Simpanan Pemeliharaan Mesin
+      csvContent += `"Simpanan Pemeliharaan Mesin",-, -,${persenMesin.toFixed(1)}%,-,${Math.round(nominalMesinBulan)},${Math.round(nominalMesinBulan * 12)}\n`;
 
+      // 2. Baris Pendiri (Owner)
+      const persenEfektifPendiri = (persenPendiri / 100) * sisaLabaPersen;
+      csvContent += `"Pendiri (Owner)",${persenPendiri.toFixed(1)}% (dr sisa),-,${persenEfektifPendiri.toFixed(1)}% (total),-,${Math.round(pendiriBulan)},${Math.round(pendiriBulan * 12)}\n`;
+
+      // 3. Baris Seluruh Anggota Tim
       items.forEach(item => {
         const totalPorsi = (item.saham || 0) + (item.sweat || 0);
         const sharePool = sumTotalPersen > 0 ? (totalPorsi / sumTotalPersen) * 100 : 0;

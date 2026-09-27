@@ -1,36 +1,40 @@
 # 📊 Kalkulator Pembagian Deviden & Bagi Hasil Usaha (Devident Duta)
 
-Aplikasi web interaktif dan dinamis untuk menghitung dan mensimulasikan pembagian keuntungan bersih usaha, deviden saham pokok, dan *sweat equity* secara akurat, real-time, dan proporsional.
+Aplikasi web interaktif dan dinamis untuk menghitung dan mensimulasikan pembagian keuntungan bersih usaha, simpanan pemeliharaan mesin, deviden saham pokok, dan *sweat equity* secara akurat, real-time, dan proporsional.
 
 ---
 
-## 🌟 Fitur Utama
+## 🌟 Skema Alokasi Laba Bersih
 
-- **Real-Time Dynamic Calculator:** Setiap perubahan pada nilai keuntungan bersih usaha langsung mengkalkulasi ulang seluruh porsi dividen bulanan dan tahunan tanpa reload.
-- **Dua Kantong Alokasi Usaha:**
-  - **Bagian Pendiri / Owner (51%):** Terkalkulasi otomatis per bulan dan proyeksi per tahun.
-  - **Bagian Tim / Anak-Anak (49%):** Dialokasikan khusus ke seluruh jajaran manajemen dan anggota tim (100% pool).
-- **Struktur Kepemilikan Saham & Sweat Equity:**
-  - **Direktur:** Saham 7,0% + Sweat Equity 3,0% = 10,0%
-  - **Manager:** Saham 7,0% + Sweat Equity 2,0% = 9,0%
-  - **5 Anggota Tim (RENEEO, NOREEN, VISA NAUVAL, RAMPAN, AL QAULUST TSAABIT):** Masing-masing Saham 6,0% (Total: 30,0%)
-  - **Total Porsi Tim:** Tepat 49,0% (100% dari alokasi pool tim).
-- **Visualisasi Progress Bar:** Menampilkan persentase kepemilikan dan distribusi dana secara grafis.
-- **Manajemen Anggota Dinamis:** Tambah, edit nama/persentase, dan hapus baris penerima dividen kapan saja.
-- **Ekspor Data ke CSV/Excel:** Unduh rincian tabel perhitungan secara instan.
+Total Laba Bersih Usaha (100%) dialokasikan secara bertahap:
+1. **⚙️ Simpanan Pemeliharaan Mesin-Mesin (20%):** 
+   - Disimpan terlebih dahulu sebagai dana cadangan dan operasional perawatan mesin.
+2. **📈 Sisa Laba Bersih Siap Dibagikan (80%):**
+   - **Bagian Pendiri / Owner (51% dari sisa laba = 40,8% dari total laba):** Alokasi dividen untuk pemilik/pendiri usaha.
+   - **Bagian Anak-Anak / Tim (49% dari sisa laba = 39,2% dari total laba):** Dialokasikan khusus ke seluruh jajaran manajemen dan anggota tim (100% pool tim).
 
 ---
 
-## 🚀 Cara Menjalankan
+## 👥 Struktur Kepemilikan Saham & Sweat Equity Tim
 
-Aplikasi ini bersifat *standalone single-page application* (SPA) tanpa perlu instalasi server:
-1. Clone repositori ini atau download file `index.html`.
-2. Klik ganda file `index.html` untuk membukanya di browser apa pun (Google Chrome, Microsoft Edge, Safari, Firefox).
+Porsi pool tim dibagikan ke 7 anggota dengan komposisi default:
+- **Direktur:** Saham 7,0% + Sweat Equity 3,0% = 10,0%
+- **Manager:** Saham 7,0% + Sweat Equity 2,0% = 9,0%
+- **5 Anggota Tim (RENEEO, NOREEN, VISA NAUVAL, RAMPAN, AL QAULUST TSAABIT):** Masing-masing Saham 6,0% (Total: 30,0%)
+- **Total Porsi Tim:** Tepat 49,0% (100% dari alokasi pool tim).
 
 ---
 
-## 🛠️ Teknologi yang Digunakan
+## 🚀 Fitur Utama
 
-- **HTML5 & Vanilla JavaScript (ES6+)**
-- **Tailwind CSS** untuk tampilan UI modern, responsif, dan elegan
-- **Google Fonts (Plus Jakarta Sans & JetBrains Mono)**
+- **Real-Time Dynamic Calculator:** Setiap perubahan laba atau persentase langsung mengkalkulasi ulang seluruh porsi simpanan mesin dan dividen bulanan/tahunan.
+- **Visual Progress Bar 3-Alokasi:** Menampilkan rasio alokasi Mesin (20%), Pendiri (40,8%), dan Tim (39,2%).
+- **Manajemen Anggota Dinamis:** Tambah, edit nama/persentase saham & sweat equity, serta hapus baris.
+- **Ekspor Data ke CSV:** Unduh rincian tabel perhitungan lengkap dengan simpanan mesin dan pembagian per anggota.
+
+---
+
+## 🛠️ Cara Menjalankan
+
+Aplikasi ini bersifat *standalone single-page application* (SPA) tanpa perlu server:
+1. Klik ganda file `index.html` untuk membukanya di browser (Google Chrome, Microsoft Edge, Mozilla Firefox, Safari).
