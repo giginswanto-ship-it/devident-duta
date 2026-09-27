@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kalkulator Deviden & Bagi Hasil Usaha Terintegrasi</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+    input[type=number]::-webkit-inner-spin-button, 
+    input[type=number]::-webkit-outer-spin-button { 
+      -webkit-appearance: none; 
+      margin: 0; 
+    }
+    input[type=number] {
+      -moz-appearance: textfield;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 antialiased p-3 sm:p-6 min-h-screen">
+  <div class="max-w-6xl mx-auto space-y-6">
+    
+    <!-- Header -->
+    <header class="bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-6 shadow-2xl relative overflow-hidden">
+      <div class="absolute -right-10 -top-10 w-52 h-52 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 relative z-10">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-semibold mb-2 border border-emerald-500/20">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+            100% Real-Time & Dinamis
+          </div>
+          <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
+            Kalkulator Deviden Terintegrasi
+          </h1>
+          <p class="text-sm text-slate-400 mt-1">
+            Ubah nilai laba bersih atau persentase di bawah — seluruh komponen dan rincian anggota akan terhitung otomatis seketika.
+          </p>
+        </div>
+        <div class="flex items-center gap-2 flex-wrap">
+          <button onclick="resetToDefaults()" class="px-3.5 py-2 text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg transition-all border border-slate-700 flex items-center gap-1.5 shadow-sm">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+            Reset Default
+          </button>
+          <button onclick="exportToCSV()" class="px-3.5 py-2 text-xs font-medium bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg transition-all shadow-md flex items-center gap-1.5 font-semibold">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            Export CSV
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Top Master Control: Input Laba & Distribusi Induk -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+      
+      <!-- Input Laba Bersih Utama -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg flex flex-col justify-between relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-24 h-24 bg-amber-500/10 rounded-bl-full pointer-events-none"></div>
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <label class="block text-xs font-bold uppercase tracking-wider text-amber-400">
+              Total Laba Bersih Usaha
+            </label>
+            <span class="text-[11px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-semibold border border-amber-500/30">Master Input</span>
+          </div>
+          
+          <div class="relative mt-2">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-amber-400 font-bold text-lg">Rp</span>
+            <input type="text" id="inputLaba" value="70.000.000" oninput="handleLabaInput(this)" 
+              class="w-full pl-12 pr-4 py-3 bg-slate-950 border-2 border-amber-500/50 focus:border-amber-400 rounded-xl text-xl sm:text-2xl font-black text-amber-300 focus:outline-none focus:ring-4 focus:ring-amber-500/20 transition-all font-mono shadow-inner">
+          </div>
+
+          <!-- Quick Laba Buttons -->
+          <div class="mt-3 flex items-center gap-1.5 flex-wrap">
+            <span class="text-[11px] text-slate-400 mr-1">Cepat:</span>
+            <button onclick="setLaba(30000000)" class="px-2 py-1 text-[11px] font-mono bg-slate-800 hover:bg-slate-700 text-slate-300 rounded border border-slate-700">30 Jt</button>
+            <button onclick="setLaba(50000000)" class="px-2 py-1 text-[11px] font-mono bg-slate-800 hover:bg-slate-700 text-slate-300 rounded border border-slate-700">50 Jt</button>
+            <button onclick="setLaba(70000000)" class="px-2 py-1 text-[11px] font-mono bg-amber-900/60 hover:bg-amber-800 text-amber-200 rounded border border-amber-600/50 font-bold">70 Jt</button>
+            <button onclick="setLaba(100000000)" class="px-2 py-1 text-[11px] font-mono bg-slate-800 hover:bg-slate-700 text-slate-300 rounded border border-slate-700">100 Jt</button>
+            <button onclick="setLaba(150000000)" class="px-2 py-1 text-[11px] font-mono bg-slate-800 hover:bg-slate-700 text-slate-300 rounded border border-slate-700">150 Jt</button>
+          </div>
+        </div>
+
+        <div class="mt-5 pt-4 border-t border-slate-800 flex justify-between items-center text-xs">
+          <span class="text-slate-400">Total Proyeksi 1 Tahun (x12):</span>
+          <span id="labaTahunanDisplay" class="font-bold text-slate-100 font-mono text-sm">Rp 840.000.000</span>
+        </div>
+      </div>
+
+      <!-- Dua Kantong Dana: Bagian Pendiri & Bagian Anak-Anak -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+        
+        <!-- Kantong Pendiri (51%) -->
+        <div class="bg-slate-950 border border-sky-500/40 rounded-xl p-4 flex flex-col justify-between shadow-sm">
+          <div>
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-sky-400 uppercase tracking-wider">1. Bagian Pendiri</span>
+              <div class="flex items-center gap-1">
+                <input type="number" id="persenPendiri" value="51" step="0.5" min="0" max="100" oninput="handlePersenPendiriChange(this.value)"
+                  class="w-14 px-2 py-0.5 text-right bg-slate-900 border border-sky-500/50 rounded text-xs font-bold text-sky-300 focus:outline-none font-mono">
+                <span class="text-xs font-bold text-sky-400">%</span>
+              </div>
+            </div>
+            <div id="nominalPendiriBulan" class="text-xl sm:text-2xl font-black text-sky-300 mt-2 font-mono">Rp 35.700.000</div>
+            <div class="text-xs text-slate-400 mt-0.5">alokasi per bulan untuk owner</div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-800 text-xs text-slate-400 flex justify-between items-center font-mono">
+            <span>Setahun:</span>
+            <span id="nominalPendiriTahun" class="font-bold text-sky-200 text-sm">Rp 428.400.000</span>
+          </div>
+        </div>
+
+        <!-- Kantong Tim/Anak-Anak (49%) -->
+        <div class="bg-slate-950 border-2 border-emerald-500/60 rounded-xl p-4 flex flex-col justify-between shadow-md relative overflow-hidden">
+          <div class="absolute -top-1 right-2 px-2 py-0.5 bg-emerald-600 text-white text-[10px] font-extrabold uppercase rounded shadow">
+            Pool Dibagikan ke Tim
+          </div>
+          <div>
+            <div class="flex items-center justify-between mt-1">
+              <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">2. Bagian Anak-Anak</span>
+              <div class="flex items-center gap-1">
+                <input type="number" id="persenAnak" value="49" step="0.5" min="0" max="100" oninput="handlePersenAnakChange(this.value)"
+                  class="w-14 px-2 py-0.5 text-right bg-slate-900 border border-emerald-500/50 rounded text-xs font-bold text-emerald-300 focus:outline-none font-mono">
+                <span class="text-xs font-bold text-emerald-400">%</span>
+              </div>
+            </div>
+            <div id="nominalAnakBulan" class="text-xl sm:text-2xl font-black text-emerald-300 mt-2 font-mono">Rp 34.300.000</div>
+            <div class="text-xs text-emerald-400/80 font-semibold mt-0.5">100% dana pool ini dibagi ke tim</div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-800 text-xs text-slate-400 flex justify-between items-center font-mono">
+            <span>Setahun:</span>
+            <span id="nominalAnakTahun" class="font-bold text-emerald-200 text-sm">Rp 411.600.000</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Visual Dynamic Progress Bar Pool Allocation -->
+    <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow-sm space-y-2">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between text-xs gap-1">
+        <div class="font-semibold text-slate-300 flex items-center gap-2">
+          <span>Distribusi Dana Laba Keseluruhan:</span>
+          <span class="font-mono text-sky-400 font-bold" id="barTextPendiri">Pendiri 51% (Rp 35.700.000)</span>
+          <span class="text-slate-600">|</span>
+          <span class="font-mono text-emerald-400 font-bold" id="barTextAnak">Tim 49% (Rp 34.300.000)</span>
+        </div>
+        <div class="font-mono text-slate-400">Total: 100% Lunas</div>
+      </div>
+      <div class="w-full h-3 bg-slate-950 rounded-full overflow-hidden flex border border-slate-800">
+        <div id="progressBarPendiri" class="h-full bg-sky-500 transition-all duration-300" style="width: 51%"></div>
+        <div id="progressBarAnak" class="h-full bg-emerald-500 transition-all duration-300" style="width: 49%"></div>
+      </div>
+    </div>
+
+    <!-- Main Table Card: Daftar Pembagian Tim/Anak-Anak -->
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-xl overflow-hidden">
+      <div class="p-5 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <div>
+          <h2 class="text-lg font-bold text-white flex items-center gap-2">
+            <span>Rincian Pembagian Seluruh Anggota Tim</span>
+            <span id="countAnggota" class="px-2.5 py-0.5 text-xs bg-slate-800 text-slate-300 rounded-full border border-slate-700 font-mono">7 Penerima</span>
+          </h2>
+          <p class="text-xs text-slate-400 mt-0.5">
+            Semua nominal deviden bulanan & tahunan di bawah otomatis terintegrasi dengan total laba bersih.
+          </p>
+        </div>
+        <button onclick="tambahBaris()" class="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold rounded-lg transition-all shadow-md flex items-center gap-1.5 self-start sm:self-auto">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+          Tambah Anggota Tim
+        </button>
+      </div>
+
+      <!-- Tabel -->
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse text-sm">
+          <thead>
+            <tr class="bg-slate-950 text-slate-400 border-b border-slate-800 text-xs uppercase tracking-wider font-semibold">
+              <th class="py-3 px-4 w-12 text-center">No</th>
+              <th class="py-3 px-4 min-w-[200px]">Nama Penerima / Posisi</th>
+              <th class="py-3 px-3 w-28 text-right">Saham (%)</th>
+              <th class="py-3 px-3 w-32 text-right">Sweat Equity (%)</th>
+              <th class="py-3 px-3 w-24 text-right">Porsi (%)</th>
+              <th class="py-3 px-3 w-32 text-right text-purple-300">% dari Pool Tim</th>
+              <th class="py-3 px-4 min-w-[160px] text-right text-emerald-400">Deviden / Bulan</th>
+              <th class="py-3 px-4 min-w-[160px] text-right text-sky-400">Deviden / Tahun</th>
+              <th class="py-3 px-3 w-16 text-center">Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody" class="divide-y divide-slate-800/80">
+            <!-- Rendered by JavaScript dynamically -->
+          </tbody>
+          <tfoot class="bg-slate-950 font-semibold text-xs border-t-2 border-slate-800">
+            <tr>
+              <td colspan="2" class="py-3.5 px-4 text-slate-300 font-bold">TOTAL DIBAGIKAN KE ANAK-ANAK</td>
+              <td id="footTotalSaham" class="py-3.5 px-3 text-right font-mono text-slate-200">42,0%</td>
+              <td id="footTotalSweat" class="py-3.5 px-3 text-right font-mono text-purple-300">7,0%</td>
+              <td id="footTotalPersen" class="py-3.5 px-3 text-right font-mono text-slate-200 font-bold">49,0%</td>
+              <td id="footPoolPercent" class="py-3.5 px-3 text-right font-mono text-purple-300 font-bold">100,0%</td>
+              <td id="footTotalNominalBulan" class="py-3.5 px-4 text-right font-mono text-emerald-300 font-bold text-sm">Rp 34.300.000</td>
+              <td id="footTotalNominalTahun" class="py-3.5 px-4 text-right font-mono text-sky-300 font-bold text-sm">Rp 411.600.000</td>
+              <td></td>
+            </tr>
+            <tr class="bg-black font-bold text-xs text-amber-300 border-t border-slate-800">
+              <td colspan="4" class="py-3.5 px-4 text-amber-400">TOTAL DISTRIBUSI KESELURUHAN (PENDIRI + TIM)</td>
+              <td id="footGrandTotalPersen" class="py-3.5 px-3 text-right font-mono">100,0%</td>
+              <td class="text-right text-slate-400 font-mono">100,0%</td>
+              <td id="footGrandTotalBulan" class="py-3.5 px-4 text-right font-mono text-sm font-extrabold text-emerald-400">Rp 70.000.000</td>
+              <td id="footGrandTotalTahun" class="py-3.5 px-4 text-right font-mono text-sm font-extrabold text-sky-400">Rp 840.000.000</td>
+              <td></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+
+    <!-- Live Formula Summary Box -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-slate-400">
+      <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 flex flex-col justify-between">
+        <div>
+          <span class="font-bold text-slate-200 block mb-1">🔗 Integrasi Total Laba Usaha</span>
+          Setiap angka laba baru yang diketikkan akan otomatis mengalikan porsi Pendiri (51%) dan seluruh Anggota Tim (49%).
+        </div>
+      </div>
+      <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 flex flex-col justify-between">
+        <div>
+          <span class="font-bold text-slate-200 block mb-1">⚡ Sweat Equity Terpisah</span>
+          Sweat equity dihitung sebagai porsi tambahan di atas saham modal dasar dan terakumulasi secara otomatis.
+        </div>
+      </div>
+      <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 flex flex-col justify-between">
+        <div>
+          <span class="font-bold text-slate-200 block mb-1">🛡️ Konsistensi 100%</span>
+          <span id="infoDanaCheck">Dana Rp 34.300.000 terbagi habis secara proporsional.</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // Data Presets Default (Saham: Dir 7%, Mgr 7%, 5 Anggota @ 6.0% | Sweat: Dir 3%, Mgr 2%)
+    const defaultData = [
+      { nama: "Direktur", saham: 7.0, sweat: 3.0 },
+      { nama: "Manager", saham: 7.0, sweat: 2.0 },
+      { nama: "RENEEO", saham: 6.0, sweat: 0.0 },
+      { nama: "NOREEN", saham: 6.0, sweat: 0.0 },
+      { nama: "VISA NAUVAL", saham: 6.0, sweat: 0.0 },
+      { nama: "RAMPAN", saham: 6.0, sweat: 0.0 },
+      { nama: "AL QAULUST TSAABIT", saham: 6.0, sweat: 0.0 }
+    ];
+
+    let items = JSON.parse(JSON.stringify(defaultData));
+    let labaBersih = 70000000;
+    let persenPendiri = 51.0;
+    let persenAnak = 49.0;
+
+    function formatRupiah(number) {
+      return new Intl.NumberFormat('id-ID', {
+        style: 'currency',
+        currency: 'IDR',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+      }).format(Math.round(number));
+    }
+
+    function parseRupiahInput(val) {
+      return parseFloat(val.replace(/[^0-9]/g, '')) || 0;
+    }
+
+    function formatNumberString(num) {
+      return Math.round(num).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }
+
+    function handleLabaInput(el) {
+      const raw = parseRupiahInput(el.value);
+      labaBersih = raw;
+      el.value = formatNumberString(raw);
+      render();
+    }
+
+    function setLaba(val) {
+      labaBersih = val;
+      document.getElementById('inputLaba').value = formatNumberString(val);
+      render();
+    }
+
+    function handlePersenPendiriChange(val) {
+      persenPendiri = parseFloat(val) || 0;
+      persenAnak = +(100 - persenPendiri).toFixed(2);
+      document.getElementById('persenAnak').value = persenAnak;
+      render();
+    }
+
+    function handlePersenAnakChange(val) {
+      persenAnak = parseFloat(val) || 0;
+      persenPendiri = +(100 - persenAnak).toFixed(2);
+      document.getElementById('persenPendiri').value = persenPendiri;
+      render();
+    }
+
+    function updateItem(index, field, value) {
+      if (field === 'nama') {
+        items[index].nama = value;
+      } else {
+        items[index][field] = parseFloat(value) || 0;
+      }
+      render();
+    }
+
+    function tambahBaris() {
+      items.push({
+        nama: `Anggota ${items.length + 1}`,
+        saham: 5.6,
+        sweat: 0.0
+      });
+      render();
+    }
+
+    function hapusBaris(index) {
+      if (items.length <= 1) {
+        alert("Minimal harus ada 1 anggota!");
+        return;
+      }
+      items.splice(index, 1);
+      render();
+    }
+
+    function resetToDefaults() {
+      items = JSON.parse(JSON.stringify(defaultData));
+      labaBersih = 70000000;
+      persenPendiri = 51.0;
+      persenAnak = 49.0;
+      document.getElementById('inputLaba').value = formatNumberString(labaBersih);
+      document.getElementById('persenPendiri').value = persenPendiri;
+      document.getElementById('persenAnak').value = persenAnak;
+      render();
+    }
+
+    function render() {
+      // 1. Kalkulasi Utama Terintegrasi dari Laba Bersih
+      const labaTahunan = labaBersih * 12;
+      const nominalPendiriBulan = (persenPendiri / 100) * labaBersih;
+      const nominalPendiriTahun = nominalPendiriBulan * 12;
+
+      const poolAnakBulan = (persenAnak / 100) * labaBersih;
+      const poolAnakTahun = poolAnakBulan * 12;
+
+      // Update Card Atas
+      document.getElementById('labaTahunanDisplay').textContent = formatRupiah(labaTahunan);
+      document.getElementById('nominalPendiriBulan').textContent = formatRupiah(nominalPendiriBulan);
+      document.getElementById('nominalPendiriTahun').textContent = formatRupiah(nominalPendiriTahun);
+      document.getElementById('nominalAnakBulan').textContent = formatRupiah(poolAnakBulan);
+      document.getElementById('nominalAnakTahun').textContent = formatRupiah(poolAnakTahun);
+
+      // Update Progress Bar
+      document.getElementById('barTextPendiri').textContent = `Pendiri ${persenPendiri.toFixed(1)}% (${formatRupiah(nominalPendiriBulan)})`;
+      document.getElementById('barTextAnak').textContent = `Tim ${persenAnak.toFixed(1)}% (${formatRupiah(poolAnakBulan)})`;
+      document.getElementById('progressBarPendiri').style.width = `${Math.min(100, Math.max(0, persenPendiri))}%`;
+      document.getElementById('progressBarAnak').style.width = `${Math.min(100, Math.max(0, persenAnak))}%`;
+
+      // 2. Kalkulasi Detail Anggota Tim
+      let sumSaham = 0;
+      let sumSweat = 0;
+      let sumTotalPersen = 0;
+
+      items.forEach(item => {
+        sumSaham += (item.saham || 0);
+        sumSweat += (item.sweat || 0);
+        sumTotalPersen += (item.saham || 0) + (item.sweat || 0);
+      });
+
+      const tbody = document.getElementById('tableBody');
+      tbody.innerHTML = '';
+
+      let sumNominalBulan = 0;
+      let sumSharePoolPercent = 0;
+
+      items.forEach((item, idx) => {
+        const totalPorsiItem = (item.saham || 0) + (item.sweat || 0);
+        
+        // Porsi persentase terhadap pool anak
+        const sharePoolPercent = sumTotalPersen > 0 ? (totalPorsiItem / sumTotalPersen) * 100 : 0;
+        
+        // Nominal uang yang didapat (selalu tersinkronisasi realtime dengan poolAnakBulan)
+        const nominalBulan = sumTotalPersen > 0 ? (totalPorsiItem / sumTotalPersen) * poolAnakBulan : 0;
+        const nominalTahun = nominalBulan * 12;
+
+        sumSharePoolPercent += sharePoolPercent;
+        sumNominalBulan += nominalBulan;
+
+        const tr = document.createElement('tr');
+        tr.className = "hover:bg-slate-800/50 transition-colors";
+        tr.innerHTML = `
+          <td class="py-3 px-4 text-center text-slate-400 font-mono">${idx + 1}</td>
+          <td class="py-3 px-4">
+            <input type="text" value="${item.nama}" onchange="updateItem(${idx}, 'nama', this.value)"
+              class="w-full bg-slate-950 border border-slate-700 focus:border-indigo-500 rounded px-2.5 py-1 text-slate-100 font-medium focus:outline-none text-sm">
+          </td>
+          <td class="py-3 px-3 text-right">
+            <input type="number" step="0.1" min="0" max="100" value="${item.saham}" oninput="updateItem(${idx}, 'saham', this.value)"
+              class="w-20 bg-slate-950 border border-slate-700 focus:border-indigo-500 rounded px-2 py-1 text-slate-100 text-right font-mono focus:outline-none text-sm">
+          </td>
+          <td class="py-3 px-3 text-right">
+            <input type="number" step="0.1" min="0" max="100" value="${item.sweat}" oninput="updateItem(${idx}, 'sweat', this.value)"
+              class="w-20 bg-slate-950 border border-purple-500/40 focus:border-purple-400 rounded px-2 py-1 text-purple-300 text-right font-mono focus:outline-none text-sm">
+          </td>
+          <td class="py-3 px-3 text-right font-mono font-bold ${totalPorsiItem > 0 ? 'text-slate-200' : 'text-slate-500'}">
+            ${totalPorsiItem.toFixed(1)}%
+          </td>
+          <td class="py-3 px-3 text-right font-mono font-semibold text-purple-300">
+            ${sharePoolPercent.toFixed(2)}%
+          </td>
+          <td class="py-3 px-4 text-right font-mono font-bold text-emerald-300">
+            ${formatRupiah(nominalBulan)}
+          </td>
+          <td class="py-3 px-4 text-right font-mono text-sky-300">
+            ${formatRupiah(nominalTahun)}
+          </td>
+          <td class="py-3 px-3 text-center">
+            <button onclick="hapusBaris(${idx})" title="Hapus baris" class="p-1.5 text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 rounded transition-all">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      // 3. Update Footer & Grand Total
+      document.getElementById('countAnggota').textContent = `${items.length} Penerima`;
+      document.getElementById('footTotalSaham').textContent = sumSaham.toFixed(1) + '%';
+      document.getElementById('footTotalSweat').textContent = sumSweat.toFixed(1) + '%';
+      document.getElementById('footTotalPersen').textContent = sumTotalPersen.toFixed(1) + '%';
+      document.getElementById('footPoolPercent').textContent = sumSharePoolPercent.toFixed(1) + '%';
+      document.getElementById('footTotalNominalBulan').textContent = formatRupiah(sumNominalBulan);
+      document.getElementById('footTotalNominalTahun').textContent = formatRupiah(sumNominalBulan * 12);
+
+      const grandTotalBulan = nominalPendiriBulan + sumNominalBulan;
+      const grandTotalTahun = grandTotalBulan * 12;
+      document.getElementById('footGrandTotalPersen').textContent = (persenPendiri + (sumTotalPersen > 0 ? persenAnak : 0)).toFixed(1) + '%';
+      document.getElementById('footGrandTotalBulan').textContent = formatRupiah(grandTotalBulan);
+      document.getElementById('footGrandTotalTahun').textContent = formatRupiah(grandTotalTahun);
+
+      document.getElementById('infoDanaCheck').textContent = `Total dana ${formatRupiah(poolAnakBulan)} terbagi habis 100% tanpa selisih.`;
+    }
+
+    function exportToCSV() {
+      let csvContent = "data:text/csv;charset=utf-8,";
+      csvContent += "Nama / Posisi,Saham (%),Sweat Equity (%),Total Porsi (%),Porsi dari Pool Tim (%),Deviden Bulanan (IDR),Deviden Tahunan (IDR)\n";
+      
+      const poolAnakBulan = (persenAnak / 100) * labaBersih;
+      const sumTotalPersen = items.reduce((acc, c) => acc + (c.saham || 0) + (c.sweat || 0), 0);
+
+      const pendiriBulan = (persenPendiri / 100) * labaBersih;
+      csvContent += `"Pendiri (Owner)",${persenPendiri.toFixed(1)}%,0.0%,${persenPendiri.toFixed(1)}%,-,${pendiriBulan},${pendiriBulan * 12}\n`;
+
+      items.forEach(item => {
+        const totalPorsi = (item.saham || 0) + (item.sweat || 0);
+        const sharePool = sumTotalPersen > 0 ? (totalPorsi / sumTotalPersen) * 100 : 0;
+        const bln = sumTotalPersen > 0 ? (totalPorsi / sumTotalPersen) * poolAnakBulan : 0;
+        csvContent += `"${item.nama}",${(item.saham||0).toFixed(1)}%,${(item.sweat||0).toFixed(1)}%,${totalPorsi.toFixed(1)}%,${sharePool.toFixed(2)}%,${Math.round(bln)},${Math.round(bln * 12)}\n`;
+      });
+
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", `laporan_deviden_${labaBersih}_${new Date().toISOString().slice(0,10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    // First initial render
+    render();
+  </script>
+</body>
+</html>
